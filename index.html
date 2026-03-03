@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paul Martin — Portfolio</title>
+  <meta name="description" content="Portfolio de Paul Martin, étudiant BUT TC, alternant Nespresso, semestre UQAC Canada. Marketing stratégique, vente premium."/>
+  <meta property="og:title" content="Paul Martin — Portfolio"/>
+  <meta property="og:description" content="Marketing · Vente · Stratégie · Nespresso · UQAC Canada"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23E50914'>P</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --red:#E50914;
+      --red-dark:#b20710;
+      --black:#0a0a0a;
+      --surface:#141414;
+      --surface2:#1f1f1f;
+      --surface3:#2a2a2a;
+      --border:rgba(255,255,255,0.07);
+      --text:#ffffff;
+      --text-muted:rgba(255,255,255,0.55);
+      --text-dim:rgba(255,255,255,0.25);
+      --display:'Bebas Neue',Impact,sans-serif;
+      --body:'Outfit',Helvetica,sans-serif;
+      --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    html{scroll-behavior:smooth;scroll-padding-top:68px;}
+    body{font-family:var(--body);background:var(--black);color:var(--text);overflow-x:hidden;cursor:none;}
+    @media(hover:none),(pointer:coarse){body{cursor:auto;}.cursor,.cursor-ring{display:none!important;}}
+
+    /* CURSOR */
+    .cursor{width:10px;height:10px;background:var(--red);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.15s var(--ease);}
+    .cursor-ring{width:36px;height:36px;border:1.5px solid rgba(229,9,20,0.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.4s var(--ease),width 0.3s,height 0.3s;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:68px;background:linear-gradient(to bottom,rgba(0,0,0,0.95) 0%,transparent 100%);transition:background 0.3s;}
+    nav.scrolled{background:rgba(10,10,10,0.98);backdrop-filter:blur(12px);}
+    .nav-logo{font-family:var(--display);font-size:28px;letter-spacing:0.05em;color:var(--red);text-decoration:none;}
+    .nav-links{display:flex;gap:32px;list-style:none;}
+    .nav-links a{font-size:13px;font-weight:400;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--text);}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity 0.8s var(--ease),transform 0.8s var(--ease);}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .rd1{transition-delay:0.1s;}.rd2{transition-delay:0.2s;}.rd3{transition-delay:0.3s;}.rd4{transition-delay:0.45s;}
+
+    /* HERO */
+    #hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;z-index:0;}
+    .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(30%) brightness(0.35);}
+    .hero-bg-gradient{position:absolute;inset:0;background:linear-gradient(to top,var(--black) 0%,rgba(0,0,0,0.6) 40%,rgba(0,0,0,0.2) 70%,transparent 100%);}
+    .hero-bg-left{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.85) 0%,transparent 60%);}
+    .hero-content{position:relative;z-index:1;padding:0 60px 80px;max-width:760px;}
+    .hero-badge{display:inline-block;background:var(--red);color:var(--text);font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;margin-bottom:24px;}
+    .hero-name{font-family:var(--display);font-size:clamp(72px,12vw,160px);line-height:0.9;letter-spacing:0.02em;color:var(--text);margin-bottom:4px;}
+    .hero-name span{color:var(--red);}
+    .hero-subtitle{font-size:15px;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:28px;}
+    .hero-desc{font-size:18px;font-weight:300;line-height:1.7;color:rgba(255,255,255,0.8);max-width:520px;margin-bottom:40px;}
+    .hero-kpis{display:flex;gap:32px;margin-bottom:44px;flex-wrap:wrap;}
+    .hero-kpi{text-align:left;}
+    .hero-kpi-num{font-family:var(--display);font-size:42px;color:var(--red);line-height:1;}
+    .hero-kpi-label{font-size:11px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:2px;}
+    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+    .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--red);color:var(--text);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:background 0.2s,transform 0.2s;}
+    .btn-primary:hover{background:var(--red-dark);transform:scale(1.02);}
+    .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:rgba(255,255,255,0.12);color:var(--text);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.2);transition:background 0.2s;}
+    .btn-outline:hover{background:rgba(255,255,255,0.2);}
+    .hero-scroll{position:absolute;bottom:32px;right:60px;z-index:1;display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+    .hero-scroll-line{width:40px;height:1px;background:var(--red);}
+
+    /* SECTIONS */
+    section{padding:80px 0;}
+    .container{max-width:1200px;margin:0 auto;padding:0 60px;}
+    .section-header{margin-bottom:48px;display:flex;align-items:baseline;gap:20px;}
+    .section-title{font-family:var(--display);font-size:clamp(32px,4vw,52px);letter-spacing:0.04em;color:var(--text);}
+    .section-title span{color:var(--red);}
+    .section-line{flex:1;height:1px;background:linear-gradient(to right,var(--red),transparent);max-width:200px;}
+
+    /* ABOUT */
+    #about{background:var(--surface);}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+    .about-text{font-size:17px;font-weight:300;line-height:1.8;color:rgba(255,255,255,0.75);margin-bottom:32px;}
+    .about-quote{padding:28px 32px;border-left:3px solid var(--red);background:rgba(229,9,20,0.06);}
+    .about-quote blockquote{font-family:var(--display);font-size:22px;letter-spacing:0.03em;color:var(--text);line-height:1.4;}
+    .about-quote cite{display:block;margin-top:10px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);font-style:normal;}
+    .traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);}
+    .trait{background:var(--surface2);padding:24px;transition:background 0.25s;}
+    .trait:hover{background:var(--surface3);}
+    .trait-icon{width:28px;height:28px;margin-bottom:10px;color:var(--red);}
+    .trait-name{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:6px;}
+    .trait-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.55;}
+    .kpi-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:40px;}
+    .kpi-cell{background:var(--surface2);padding:20px;text-align:center;}
+    .kpi-num{font-family:var(--display);font-size:32px;color:var(--red);line-height:1;margin-bottom:4px;}
+    .kpi-lbl{font-size:10px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);}
+
+    /* PARCOURS */
+    #parcours{background:var(--black);}
+    .timeline{border-left:1px solid var(--red);padding-left:48px;margin-left:16px;display:flex;flex-direction:column;gap:0;}
+    .tl-item{position:relative;padding-bottom:52px;}
+    .tl-item:last-child{padding-bottom:0;}
+    .tl-dot{position:absolute;left:-57px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--black);border:2px solid var(--red);transition:background 0.3s;}
+    .tl-item:hover .tl-dot{background:var(--red);}
+    .tl-year{font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+    .tl-school{font-family:var(--display);font-size:28px;letter-spacing:0.03em;color:var(--text);margin-bottom:4px;}
+    .tl-degree{font-size:13px;color:var(--text-muted);letter-spacing:0.04em;margin-bottom:16px;}
+    .pills{display:flex;flex-wrap:wrap;gap:8px;}
+    .pill{padding:5px 13px;background:rgba(229,9,20,0.1);border:1px solid rgba(229,9,20,0.25);font-size:12px;color:rgba(255,255,255,0.65);letter-spacing:0.03em;}
+    .canada-gallery{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:18px;}
+    .canada-gallery img{width:100%;height:150px;object-fit:cover;filter:brightness(0.8);transition:filter 0.3s;}
+    .canada-gallery img:hover{filter:brightness(1);}
+
+    /* COMPÉTENCES */
+    #competences{background:var(--surface);}
+    .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);}
+    .comp-col{background:var(--surface2);padding:40px 32px;transition:background 0.3s;}
+    .comp-col:hover{background:var(--surface3);}
+    .comp-num{font-family:var(--display);font-size:64px;color:var(--red);opacity:0.3;line-height:1;margin-bottom:16px;}
+    .comp-title{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid rgba(229,9,20,0.2);}
+    .comp-list{list-style:none;display:flex;flex-direction:column;gap:12px;}
+    .comp-list li{font-size:13px;font-weight:300;color:var(--text-muted);display:flex;align-items:center;gap:10px;}
+    .comp-list li::before{content:'';width:5px;height:1px;background:var(--red);flex-shrink:0;}
+
+    /* OUTILS */
+    #outils{background:var(--black);}
+    .tools-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+    .tool-card{background:var(--surface2);border:1px solid var(--border);padding:24px 16px;text-align:center;transition:border-color 0.3s,transform 0.3s,background 0.3s;}
+    .tool-card:hover{border-color:var(--red);transform:translateY(-4px);background:var(--surface3);}
+    .tool-icon{width:36px;height:36px;margin:0 auto 12px;color:var(--red);display:flex;align-items:center;justify-content:center;}
+    .tool-name{font-size:11px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.6);}
+
+    /* EXPÉRIENCES */
+    #experiences{background:var(--surface);}
+    .exp-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+    .exp-card{background:var(--surface2);padding:40px;position:relative;overflow:hidden;transition:background 0.3s;}
+    .exp-card:hover{background:var(--surface3);}
+    .exp-card::before{content:'';position:absolute;top:0;left:0;width:0;height:3px;background:var(--red);transition:width 0.5s var(--ease);}
+    .exp-card:hover::before{width:100%;}
+    .exp-period{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+    .exp-company{font-family:var(--display);font-size:28px;letter-spacing:0.03em;color:var(--text);margin-bottom:4px;}
+    .exp-role{font-size:13px;color:var(--text-muted);margin-bottom:20px;}
+    .exp-pts{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .exp-pts li{font-size:13px;font-weight:300;color:rgba(255,255,255,0.65);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .exp-pts li::before{content:'—';color:var(--red);flex-shrink:0;font-size:11px;margin-top:2px;}
+    .exp-kpi{margin-top:18px;padding:12px 16px;background:rgba(229,9,20,0.08);border-left:2px solid var(--red);font-size:12px;color:rgba(229,9,20,0.9);}
+    .exp-kpi strong{font-weight:600;}
+
+    /* PROJETS */
+    #projets{background:var(--black);}
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+    .proj-card{position:relative;overflow:hidden;aspect-ratio:16/10;cursor:none;}
+    .proj-card img{width:100%;height:100%;object-fit:cover;filter:brightness(0.5) grayscale(20%);transition:transform 0.6s var(--ease),filter 0.4s;}
+    .proj-card:hover img{transform:scale(1.08);filter:brightness(0.35) grayscale(0%);}
+    .proj-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+    .proj-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,transparent 60%);transform:translateY(8px);transition:transform 0.4s var(--ease);}
+    .proj-card:hover .proj-overlay{transform:translateY(0);}
+    .proj-tag{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+    .proj-title{font-family:var(--display);font-size:20px;letter-spacing:0.03em;color:var(--text);margin-bottom:6px;line-height:1.2;}
+    .proj-desc{font-size:12px;font-weight:300;color:var(--text-muted);line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity 0.4s 0.1s,transform 0.4s 0.1s;}
+    .proj-card:hover .proj-desc{opacity:1;transform:translateY(0);}
+
+    /* TÉMOIGNAGES */
+    #temoignages{background:var(--surface);}
+    .temo-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+    .temo-card{background:var(--surface2);padding:40px;position:relative;transition:background 0.3s;}
+    .temo-card:hover{background:var(--surface3);}
+    .temo-stars{color:var(--red);font-size:18px;margin-bottom:20px;letter-spacing:4px;}
+    .temo-text{font-size:16px;font-weight:300;line-height:1.75;color:rgba(255,255,255,0.8);margin-bottom:24px;font-style:italic;}
+    .temo-author{font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);}
+    .temo-source{font-size:11px;color:var(--text-dim);margin-top:4px;}
+    .temo-bigquote{position:absolute;top:16px;right:24px;font-size:100px;color:rgba(229,9,20,0.08);line-height:1;font-family:Georgia;}
+
+    /* CONTACT */
+    #contact{background:var(--black);padding:100px 0;}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+    .contact-title{font-family:var(--display);font-size:clamp(40px,6vw,80px);letter-spacing:0.04em;line-height:1;color:var(--text);margin-top:20px;margin-bottom:12px;}
+    .contact-title span{color:var(--red);}
+    .contact-sub{font-size:16px;font-weight:300;color:var(--text-muted);line-height:1.7;margin-bottom:44px;}
+    .contact-links{display:flex;flex-direction:column;gap:12px;}
+    .c-link{display:flex;align-items:center;gap:16px;padding:18px 22px;background:var(--surface2);border:1px solid var(--border);text-decoration:none;transition:border-color 0.25s,transform 0.25s,background 0.25s;}
+    .c-link:hover{border-color:var(--red);transform:translateX(6px);background:var(--surface3);}
+    .c-link-icon{width:36px;height:36px;border-radius:50%;background:rgba(229,9,20,0.1);display:flex;align-items:center;justify-content:center;color:var(--red);flex-shrink:0;}
+    .c-link-label{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:2px;}
+    .c-link-val{font-size:13px;font-weight:300;color:rgba(255,255,255,0.75);}
+    .contact-form{padding-top:8px;}
+    .f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+    .f-group{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+    .f-label{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);}
+    .f-input,.f-textarea{background:var(--surface2);border:1px solid var(--border);padding:13px 16px;color:var(--text);font-family:var(--body);font-size:14px;font-weight:300;outline:none;transition:border-color 0.25s;resize:none;}
+    .f-input:focus,.f-textarea:focus{border-color:var(--red);}
+    .f-textarea{height:110px;}
+    .f-submit{margin-top:18px;padding:15px 40px;background:var(--red);color:var(--text);font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:none;transition:background 0.2s,transform 0.2s;}
+    .f-submit:hover{background:var(--red-dark);transform:scale(1.02);}
+    .f-submit.sent{background:#2d7a4a;}
+
+    footer{padding:28px 60px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .f-logo{font-family:var(--display);font-size:20px;color:var(--red);}
+    .f-copy{font-size:11px;color:var(--text-dim);letter-spacing:0.06em;}
+
+    ::-webkit-scrollbar{width:3px;}
+    ::-webkit-scrollbar-track{background:var(--black);}
+    ::-webkit-scrollbar-thumb{background:var(--red);}
+
+    @media(max-width:900px){
+      nav{padding:0 20px;}
+      .nav-links{display:none;}
+      .hero-content{padding:0 24px 60px;}
+      .hero-kpis{gap:20px;}
+      .container{padding:0 24px;}
+      .about-grid,.contact-grid{grid-template-columns:1fr;gap:40px;}
+      .comp-grid,.exp-row,.temo-grid{grid-template-columns:1fr;}
+      .tools-row{grid-template-columns:repeat(3,1fr);}
+      .projects-grid{grid-template-columns:1fr;}
+      .f-row{grid-template-columns:1fr;}
+      footer{padding:20px 24px;flex-direction:column;gap:6px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="mainNav">
+    <a href="#hero" class="nav-logo">PM</a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#experiences">Expériences</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#temoignages">Avis</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img src="images/photo.jpg" alt="Paul Martin" loading="eager"/>
+      <div class="hero-bg-gradient"></div>
+      <div class="hero-bg-left"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">Portfolio · BUT TC · 2025</div>
+      <h1 class="hero-name reveal rd1">PAUL<br/><span>MARTIN</span></h1>
+      <p class="hero-subtitle reveal rd2">Marketing · Vente · Stratégie · International</p>
+      <p class="hero-desc reveal rd3">Construire des stratégies commerciales fondées sur l'analyse, la créativité et la compréhension du client.</p>
+      <div class="hero-kpis reveal rd3">
+        <div class="hero-kpi"><div class="hero-kpi-num">+111%</div><div class="hero-kpi-label">Objectif Nespresso</div></div>
+        <div class="hero-kpi"><div class="hero-kpi-num">895</div><div class="hero-kpi-label">TOEIC Score</div></div>
+        <div class="hero-kpi"><div class="hero-kpi-num">4</div><div class="hero-kpi-label">Mois au Canada</div></div>
+      </div>
+      <div class="hero-btns reveal rd4">
+        <a href="#parcours" class="btn-primary">Voir mon parcours <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="#contact" class="btn-outline">Me contacter</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><div class="hero-scroll-line"></div>Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-header reveal">
+            <h2 class="section-title">À <span>PROPOS</span></h2>
+            <div class="section-line"></div>
+          </div>
+          <p class="about-text reveal rd1">Étudiant en BUT Techniques de Commercialisation à Issoudun, j'ai construit un parcours résolument international avec un semestre au Canada (UQAC) et une alternance chez Nespresso. Mon ambition : intégrer un master en école de commerce pour évoluer dans le marketing stratégique, le business development ou le consulting.</p>
+          <div class="about-quote reveal rd2">
+            <blockquote>« Le succès c'est d'aller d'échec en échec sans perdre son enthousiasme. »</blockquote>
+            <cite>Winston Churchill</cite>
+          </div>
+        </div>
+        <div>
+          <div class="traits-grid reveal rd1">
+            <div class="trait">
+              <svg class="trait-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <div class="trait-name">Persévérant</div>
+              <div class="trait-desc">Je ne rien abandonne, que ce soit dans mes projets personnels ou académiques.</div>
+            </div>
+            <div class="trait">
+              <svg class="trait-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div class="trait-name">Esprit d'équipe</div>
+              <div class="trait-desc">À plusieurs on va plus loin. La diversité des idées est une force.</div>
+            </div>
+            <div class="trait">
+              <svg class="trait-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <div class="trait-name">Analytique</div>
+              <div class="trait-desc">Orienté données et résultats, je pilote ma performance par les KPI.</div>
+            </div>
+            <div class="trait">
+              <svg class="trait-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              <div class="trait-name">Optimiste</div>
+              <div class="trait-desc">Il vaut mieux être optimiste et se tromper que pessimiste et avoir raison.</div>
+            </div>
+          </div>
+          <div class="kpi-strip reveal rd2">
+            <div class="kpi-cell"><div class="kpi-num">B2</div><div class="kpi-lbl">Niveau anglais</div></div>
+            <div class="kpi-cell"><div class="kpi-num">895</div><div class="kpi-lbl">Score TOEIC</div></div>
+            <div class="kpi-cell"><div class="kpi-num">+111%</div><div class="kpi-lbl">Obj. Nespresso</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">MON <span>PARCOURS</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2023 – 2026 · En cours</div>
+          <div class="tl-school">BUT Techniques de Commercialisation</div>
+          <div class="tl-degree">IUT d'Issoudun, France · Marketing · Vente · Communication</div>
+          <div class="pills"><span class="pill">Analyse de marché</span><span class="pill">PESTEL / SWOT</span><span class="pill">Marketing mix 4P</span><span class="pill">Négociation</span><span class="pill">CRM</span><span class="pill">Communication digitale</span><span class="pill">Power BI</span><span class="pill">KPI / Reporting</span></div>
+        </div>
+        <div class="tl-item reveal rd1">
+          <div class="tl-dot"></div>
+          <div class="tl-year">Août – Décembre 2024 · Semestre international</div>
+          <div class="tl-school">Baccalauréat en Administration</div>
+          <div class="tl-degree">UQAC – Université du Québec à Chicoutimi, Canada</div>
+          <div class="pills"><span class="pill">Gestion financière</span><span class="pill">Entrepreneuriat</span><span class="pill">Marketing stratégique</span><span class="pill">Veille économique</span><span class="pill">Business plan &amp; pitch</span></div>
+          <div class="canada-gallery">
+            <img src="images/canada.png" alt="UQAC Canada" loading="lazy" style="object-position:left top"/>
+            <img src="images/canada.png" alt="UQAC Campus" loading="lazy" style="object-position:right bottom"/>
+          </div>
+        </div>
+        <div class="tl-item reveal rd2">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2021 – 2023</div>
+          <div class="tl-school">Baccalauréat STMG</div>
+          <div class="tl-degree">France · Marketing · Gestion &amp; Finance · RH</div>
+          <div class="pills"><span class="pill">Marketing</span><span class="pill">Gestion &amp; Finance</span><span class="pill">Ressources humaines</span><span class="pill">Communication</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">MES <span>COMPÉTENCES</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-col reveal">
+          <div class="comp-num">01</div>
+          <div class="comp-title">Marketing</div>
+          <ul class="comp-list"><li>Analyse de marché &amp; segmentation</li><li>Études consommateurs</li><li>Positionnement STP</li><li>Stratégie 4P</li><li>Marketing digital</li><li>Veille concurrentielle</li><li>Brand management</li><li>PESTEL / SWOT</li></ul>
+        </div>
+        <div class="comp-col reveal rd1">
+          <div class="comp-num">02</div>
+          <div class="comp-title">Vente &amp; Business Dev.</div>
+          <ul class="comp-list"><li>Négociation commerciale</li><li>Relation client premium</li><li>Parcours d'achat &amp; CX</li><li>Développement CA</li><li>Upselling / Cross-selling</li><li>Fidélisation CRM</li><li>Pilotage KPI &amp; ROI</li><li>SONCASE / CROC</li></ul>
+        </div>
+        <div class="comp-col reveal rd2">
+          <div class="comp-num">03</div>
+          <div class="comp-title">Communication</div>
+          <ul class="comp-list"><li>Communication digitale</li><li>Création de contenu</li><li>Branding &amp; storytelling</li><li>Communiqués de presse</li><li>Réseaux sociaux</li><li>Design Canva</li><li>Présentation &amp; pitch</li><li>Communication interne</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTILS -->
+  <section id="outils">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">OUTILS <span>TECHNIQUES</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="tools-row">
+        <div class="tool-card reveal"><div class="tool-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div class="tool-name">Excel</div></div>
+        <div class="tool-card reveal rd1"><div class="tool-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="tool-name">Power BI</div></div>
+        <div class="tool-card reveal rd2"><div class="tool-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><div class="tool-name">Canva</div></div>
+        <div class="tool-card reveal rd3"><div class="tool-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tool-name">Claude AI</div></div>
+        <div class="tool-card reveal rd1"><div class="tool-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div class="tool-name">PowerPoint</div></div>
+        <div class="tool-card reveal rd2"><div class="tool-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="tool-name">Data Analyse</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPÉRIENCES -->
+  <section id="experiences">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">EXPÉRIENCES <span>PRO</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="exp-row">
+        <div class="exp-card reveal">
+          <div class="exp-period">Août 2025 – Août 2026 · Alternance</div>
+          <div class="exp-company">Nespresso</div>
+          <div class="exp-role">Spécialiste Café — Conseiller Commercial · Tours</div>
+          <ul class="exp-pts"><li>Conseil client premium et accompagnement personnalisé</li><li>Démonstration Grands Crus, dégustations, animation boutique</li><li>Fidélisation Club, upselling &amp; cross-selling systématique</li><li>Analyse performance via tableau de bord Power BI quotidien</li></ul>
+          <div class="exp-kpi"><strong>KPIs :</strong> Panier Moyen 98% · Cde Moyenne 99% · Vertuo +103% · Accessoires +111%</div>
+        </div>
+        <div class="exp-card reveal rd1">
+          <div class="exp-period">Juillet 2023 – Août 2024 · Saisonnier</div>
+          <div class="exp-company">Château de la Bourdaisière</div>
+          <div class="exp-role">Employé Polyvalent · Montlouis-sur-Loire</div>
+          <ul class="exp-pts"><li>Service client en environnement hôtelier haut de gamme</li><li>Coordination équipes en conditions exigeantes</li><li>Valorisation image du domaine et de ses événements</li></ul>
+        </div>
+        <div class="exp-card reveal rd2">
+          <div class="exp-period">Juillet 2023 · Officiel</div>
+          <div class="exp-company">Championnats du Monde FISEC</div>
+          <div class="exp-role">Arbitre International · Dunkerque</div>
+          <ul class="exp-pts"><li>Arbitrage officiel en compétition internationale</li><li>Gestion du stress et prise de décision sous pression</li><li>Management de jeunes sportifs</li></ul>
+        </div>
+        <div class="exp-card reveal rd3">
+          <div class="exp-period">2022 – Présent · Bénévolat</div>
+          <div class="exp-company">Basket &amp; Engagement</div>
+          <div class="exp-role">Arbitre National FFBB · Président BDE</div>
+          <ul class="exp-pts"><li>Arbitre national basketball en championnat de France</li><li>Joueur et formateur de jeunes basketteurs</li><li>Président BDE : management, budget, événements</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">MES <span>PROJETS</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <div class="proj-card reveal">
+          <img src="images/issoudurable.png" alt="IssouDurable" loading="lazy"/>
+          <div class="proj-overlay">
+            <div class="proj-tag">Entrepreneuriat · Projet transverse</div>
+            <div class="proj-title">IssouDurable</div>
+            <div class="proj-desc">Friperie innovante alliant mode durable, accessibilité et engagement écologique pour étudiants.</div>
+          </div>
+        </div>
+        <div class="proj-card reveal rd1">
+          <img src="images/combier.png" alt="Combier" loading="lazy"/>
+          <div class="proj-overlay">
+            <div class="proj-tag">Stratégie · Analyse marché</div>
+            <div class="proj-title">Distillerie Combier — La Folie</div>
+            <div class="proj-desc">Lancement sirop premium — analyse concurrentielle marché 475M€, benchmark Teisseire, Monin, 1883.</div>
+          </div>
+        </div>
+        <div class="proj-card reveal rd2">
+          <img src="images/combier2.png" alt="Analyse concurrentielle" loading="lazy"/>
+          <div class="proj-overlay">
+            <div class="proj-tag">Business Intelligence</div>
+            <div class="proj-title">Benchmark Concurrentiel Sirop</div>
+            <div class="proj-desc">Forces et faiblesses des acteurs du marché — parts de marché, positionnement, recommandations.</div>
+          </div>
+        </div>
+        <div class="proj-card reveal rd1">
+          <img src="images/sanex.png" alt="Flyer Sanex" loading="lazy"/>
+          <div class="proj-overlay">
+            <div class="proj-tag">Communication · Design</div>
+            <div class="proj-title">Flyer Sanex Friendly</div>
+            <div class="proj-desc">Création flyer publicitaire produit — hiérarchie visuelle, sens de lecture, impact message.</div>
+          </div>
+        </div>
+        <div class="proj-card reveal rd2">
+          <img src="images/presse.png" alt="Communiqué de presse" loading="lazy"/>
+          <div class="proj-overlay">
+            <div class="proj-tag">Communication · Rédaction</div>
+            <div class="proj-title">Communiqué — Musée Saint-Roch</div>
+            <div class="proj-desc">Communiqué de presse professionnel pour valoriser le musée d'Issoudun.</div>
+          </div>
+        </div>
+        <div class="proj-card reveal rd3">
+          <div class="proj-placeholder" style="background:linear-gradient(135deg,#1a0a0a,#3a0a0a);">
+            <span style="font-family:var(--display);font-size:80px;color:rgba(229,9,20,0.15);">06</span>
+          </div>
+          <div class="proj-overlay">
+            <div class="proj-tag">Finance · Marchés</div>
+            <div class="proj-title">Veille Marchés Financiers</div>
+            <div class="proj-desc">Système personnel de suivi et d'analyse de différents marchés financiers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section id="temoignages">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2 class="section-title">AVIS <span>CLIENTS</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="temo-grid">
+        <div class="temo-card reveal">
+          <div class="temo-bigquote">"</div>
+          <div class="temo-stars">★★★★★</div>
+          <div class="temo-text">Je tiens à remercier sincèrement Thomas et Paul de la boutique Nespresso de Tours pour leur accueil exceptionnel. Ils ont été non seulement très professionnels, mais aussi particulièrement à l'écoute, bienveillants et pleins de bonne humeur.</div>
+          <div class="temo-author">Audrey Fosse</div>
+          <div class="temo-source">Avis Google · Boutique Nespresso Tours · Local Guide 27 avis</div>
+        </div>
+        <div class="temo-card reveal rd1">
+          <div class="temo-bigquote">"</div>
+          <div class="temo-stars">★★★★★</div>
+          <div class="temo-text">Mention à Paul, qui nous a super bien accueillis et ce qui est du café : TOP ! Il a été à l'écoute et nous a conseillés de la meilleure des manières. Je recommande !</div>
+          <div class="temo-author">Sabrina Medienne</div>
+          <div class="temo-source">Avis Google · Boutique Nespresso Tours</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <p class="section-label reveal" style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Contact</p>
+          <h2 class="contact-title reveal rd1">TRAVAILLONS<br/><span>ENSEMBLE.</span></h2>
+          <p class="contact-sub reveal rd2">À la recherche d'une alternance en master — marketing, business development, CRM ou stratégie commerciale.</p>
+          <div class="contact-links reveal rd3">
+            <a href="mailto:paul.martin37700@gmail.com" class="c-link">
+              <div class="c-link-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div><div class="c-link-label">Email</div><div class="c-link-val">paul.martin37700@gmail.com</div></div>
+            </a>
+            <a href="tel:+33689751117" class="c-link">
+              <div class="c-link-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+              <div><div class="c-link-label">Téléphone</div><div class="c-link-val">(+33) 6 89 75 11 17</div></div>
+            </a>
+            <a href="https://www.linkedin.com/in/paul-martin" target="_blank" class="c-link">
+              <div class="c-link-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+              <div><div class="c-link-label">LinkedIn</div><div class="c-link-val">Paul Martin</div></div>
+            </a>
+          </div>
+        </div>
+        <div class="contact-form reveal rd2">
+          <div class="f-row">
+            <div class="f-group"><label class="f-label">Prénom</label><input class="f-input" type="text" placeholder="Votre prénom"/></div>
+            <div class="f-group"><label class="f-label">Nom</label><input class="f-input" type="text" placeholder="Votre nom"/></div>
+          </div>
+          <div class="f-group"><label class="f-label">Email</label><input class="f-input" type="email" placeholder="votre@email.com"/></div>
+          <div class="f-group"><label class="f-label">Sujet</label><input class="f-input" type="text" placeholder="Opportunité de master, alternance..."/></div>
+          <div class="f-group"><label class="f-label">Message</label><textarea class="f-textarea" placeholder="Décrivez votre projet ou opportunité..."></textarea></div>
+          <button class="f-submit" id="submitBtn">Envoyer le message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="f-logo">PM</div>
+    <div class="f-copy">© 2025 · Paul Martin · BUT Techniques de Commercialisation</div>
+  </footer>
+
+  <script>
+    const cursor=document.getElementById('cursor');
+    const ring=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function tick(){
+      cursor.style.left=mx+'px';cursor.style.top=my+'px';
+      rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      requestAnimationFrame(tick);
+    })();
+    document.querySelectorAll('a,button').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(229,9,20,0.7)';});
+      el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(229,9,20,0.5)';});
+    });
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    window.addEventListener('scroll',()=>{
+      document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
+    });
+    document.getElementById('submitBtn').addEventListener('click',function(e){
+      e.preventDefault();
+      this.textContent='Message envoyé ✓';
+      this.classList.add('sent');
+      setTimeout(()=>{this.textContent='Envoyer le message';this.classList.remove('sent');},3000);
+    });
+  </script>
+</body>
+</html>
